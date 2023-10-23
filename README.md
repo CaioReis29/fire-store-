@@ -10,8 +10,6 @@ Aplicação para gerenciar Lista de Compras colaborativas.
 
 Nesse projeto daremos continuidade ao "Listin - Lista de Compras Colaborativa" que foi construido com Firebase Cloud Firestore, Firebase Authentication e agora adicionaremos a funcionalidade de **manipulação de arquivos** à essa aplicação.
 
-![gif-flutter-storage](https://github.com/alura-cursos/flutter_firebase_storage/raw/main/gif.gif)
-
 ## ✔️ Técnicas e tecnologias utilizadas
 
 - `Seleção de arquivos do tipo imagem`: Usamos o `ImagePicker` para dar uma interface agradável de seleção de imagens para as pessoas usuárias;
