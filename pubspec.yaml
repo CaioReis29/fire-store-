@@ -1,0 +1,29 @@
+name: flutter_firebase_storage
+description: Listin - Projeto do Curso de Flutter com Firebase Storage da Alura
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.2 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  firebase_core: ^2.19.0
+  cloud_firestore: ^4.11.0
+  uuid: ^3.0.7
+  firebase_auth: ^4.2.9
+  firebase_storage: ^11.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+  uses-material-design: true
