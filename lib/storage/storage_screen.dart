@@ -83,6 +83,7 @@ class _StorageScreenState extends State<StorageScreen> {
                 (index) {
                   ImageCustomInfo imageInfo = listFiles[index];
                   return ListTile(
+                    onTap: () => selectImage(imageInfo),
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
                       child: Image.network(
@@ -151,4 +152,7 @@ class _StorageScreenState extends State<StorageScreen> {
           ),
         );
   }
+
+  selectImage(ImageCustomInfo imgInfo) =>
+      setState(() => urlPhoto = imgInfo.urlDownload);
 }
