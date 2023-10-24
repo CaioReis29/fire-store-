@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_storage/authentication/components/show_snackbar.dart';
+import 'package:flutter_firebase_storage/storage/models/image_custom_info.dart';
 import 'package:flutter_firebase_storage/storage/services/storage_service.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,9 +15,15 @@ class StorageScreen extends StatefulWidget {
 
 class _StorageScreenState extends State<StorageScreen> {
   String? urlPhoto;
-  List<String> listFiles = [];
+  List<ImageCustomInfo> listFiles = [];
 
   final StorageService _storageService = StorageService();
+
+  @override
+  void initState() {
+    reload();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +78,32 @@ class _StorageScreenState extends State<StorageScreen> {
               ),
             ),
             Column(
-              children: List.generate(listFiles.length, (index) {
-                String url = listFiles[index];
-                return Image.network(url);
-              }),
+              children: List.generate(
+                listFiles.length,
+                (index) {
+                  ImageCustomInfo imageInfo = listFiles[index];
+                  return ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.network(
+                        imageInfo.urlDownload,
+                        height: 45,
+                        width: 45,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    title: Text(imageInfo.name),
+                    subtitle: Text(imageInfo.size),
+                    trailing: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -96,12 +125,13 @@ class _StorageScreenState extends State<StorageScreen> {
         _storageService
             .upload(
               file: File(image.path),
-              fileName: "user_photo",
+              fileName: DateTime.now().toString(),
             )
             .then(
-              (String urlDownload) => setState(
-                () => urlPhoto = urlDownload,
-              ),
+              (String urlDownload) => setState(() {
+                urlPhoto = urlDownload;
+                reload();
+              }),
             );
       } else {
         showSnackBar(context: context, mensagem: "Nenhuma imagem selecionada");
@@ -109,10 +139,16 @@ class _StorageScreenState extends State<StorageScreen> {
     });
   }
 
-  reload() =>
-      _storageService.getDownloadUrlByFileName(fileName: "user_photo").then(
-            (urlDownload) => setState(
-              () => urlPhoto = urlDownload,
-            ),
-          );
+  reload() {
+    // _storageService.getDownloadUrlByFileName(fileName: "user_photo").then(
+    //       (urlDownload) => setState(
+    //         () => urlPhoto = urlDownload,
+    //       ),
+    //     );
+    _storageService.listAllFiles().then(
+          (List<ImageCustomInfo> listFilesInfo) => setState(
+            () => listFiles = listFilesInfo,
+          ),
+        );
+  }
 }
