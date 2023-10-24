@@ -80,33 +80,38 @@ class _StorageScreenState extends State<StorageScreen> {
                 fontSize: 18,
               ),
             ),
-            Column(
-              children: List.generate(
-                listFiles.length,
-                (index) {
-                  ImageCustomInfo imageInfo = listFiles[index];
-                  return ListTile(
-                    onTap: () => selectImage(imageInfo),
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.network(
-                        imageInfo.urlDownload,
-                        height: 45,
-                        width: 45,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    title: Text(imageInfo.name),
-                    subtitle: Text(imageInfo.size),
-                    trailing: IconButton(
-                      onPressed: () => deleteImage(imageInfo),
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                    ),
-                  );
-                },
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: List.generate(
+                    listFiles.length,
+                    (index) {
+                      ImageCustomInfo imageInfo = listFiles[index];
+                      return ListTile(
+                        onTap: () => selectImage(imageInfo),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.network(
+                            imageInfo.urlDownload,
+                            height: 45,
+                            width: 45,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        title: Text(imageInfo.name),
+                        subtitle: Text(imageInfo.size),
+                        trailing: IconButton(
+                          onPressed: () => deleteImage(imageInfo),
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
           ],
