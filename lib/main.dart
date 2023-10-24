@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_firebase_storage/_core/my_colors.dart';
 import 'package:flutter_firebase_storage/firestore/presentation/home_screen.dart';
-import 'package:flutter_firebase_storage/storage/storage_screen.dart';
 import 'authentication/screens/auth_screen.dart';
 import 'firebase_options.dart';
 
@@ -52,7 +51,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const StorageScreen(), //RoteadorTelas(),
+      home: const RoteadorTelas(),
     );
   }
 }

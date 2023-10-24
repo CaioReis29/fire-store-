@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_firebase_storage/storage/models/image_custom_info.dart';
 
 class StorageService {
-  String pathService = "uploads";
+  String pathService = FirebaseAuth.instance.currentUser!.uid;
 
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
@@ -46,5 +47,9 @@ class StorageService {
     }
 
     return listFiles;
+  }
+
+  Future<void> deleteByReference({required Reference ref}) async {
+    await ref.delete();
   }
 }
